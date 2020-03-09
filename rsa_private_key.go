@@ -1,1 +1,1 @@
-package rsacrypto_go
+package rsacrypto
