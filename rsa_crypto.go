@@ -22,7 +22,7 @@ func NewRSAEncrypter(publicKey *rsa.PublicKey, opts EncrypterOpts) *RSAEncrypter
 	}
 }
 
-func (enc *RSAEncrypter) Encrypt(msg []byte) (cipher []byte, err error) {
+func (enc *RSAEncrypter) Encrypt(plain []byte) (cipher []byte, err error) {
 	// RSA algorithm has a limit to the plain message,
 	// so we need to divide the message into chunks first,
 	// then encrypt every chunk.
@@ -30,7 +30,7 @@ func (enc *RSAEncrypter) Encrypt(msg []byte) (cipher []byte, err error) {
 	if enc.opts == nil {
 		// PKCS1v15
 		limit := enc.publicKey.Size() - 11
-		chunks := split(msg, limit)
+		chunks := split(plain, limit)
 		buffer := bytes.NewBufferString("")
 		for _, chunk := range chunks {
 			encryptedChunk, err := rsa.EncryptPKCS1v15(rand.Reader, enc.publicKey, chunk)
@@ -44,7 +44,7 @@ func (enc *RSAEncrypter) Encrypt(msg []byte) (cipher []byte, err error) {
 		switch opts := enc.opts.(type) {
 		case *rsa.OAEPOptions:
 			limit := enc.publicKey.Size() - opts.Hash.Size()*2 - 2
-			chunks := split(msg, limit)
+			chunks := split(plain, limit)
 			buffer := bytes.NewBufferString("")
 			for _, chunk := range chunks {
 				encryptedChunk, err := rsa.EncryptOAEP(opts.Hash.New(), rand.Reader, enc.publicKey, chunk, opts.Label)

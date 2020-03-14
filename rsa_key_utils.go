@@ -42,7 +42,7 @@ func ParseDERPublicKey(der []byte) (key *rsa.PublicKey, err error) {
 }
 
 // Parse rsa public key from a base64 string.
-func ParseBase64PublicKey(keyBase64 string, encoding *base64.Encoding) (key *rsa.PublicKey, err error) {
+func ParseEncodedPublicKey(keyBase64 string, encoding Encoding) (key *rsa.PublicKey, err error) {
 	if encoding == nil {
 		encoding = base64.StdEncoding
 	}
@@ -89,7 +89,7 @@ func ParseDERPrivateKey(der []byte) (key *rsa.PrivateKey, err error) {
 }
 
 // Parse rsa private key from a base64 string.
-func ParseBase64PrivateKey(keyBase64 string, encoding *base64.Encoding) (key *rsa.PrivateKey, err error) {
+func ParseEncodedPrivateKey(keyBase64 string, encoding Encoding) (key *rsa.PrivateKey, err error) {
 	if encoding == nil {
 		encoding = base64.StdEncoding
 	}

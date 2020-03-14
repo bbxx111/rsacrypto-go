@@ -75,7 +75,7 @@ Of9jAYhkyhwC1yIAvwIDAQAB`,
 
 func TestParseBase64PublicKey(t *testing.T) {
 	for _, key := range testKeys {
-		pub, err := ParseBase64PublicKey(key.PublicKey, nil)
+		pub, err := ParseEncodedPublicKey(key.PublicKey, nil)
 		assert.Nil(t, err)
 		assert.NotNil(t, pub)
 	}
@@ -83,11 +83,11 @@ func TestParseBase64PublicKey(t *testing.T) {
 
 func TestParseBase64PrivateKey(t *testing.T) {
 	for _, key := range testKeys {
-		priv, err := ParseBase64PrivateKey(key.PrivateKey, nil)
+		priv, err := ParseEncodedPrivateKey(key.PrivateKey, nil)
 		assert.Nil(t, err)
 		assert.NotNil(t, priv)
 
-		pub, err := ParseBase64PublicKey(key.PublicKey, nil)
+		pub, err := ParseEncodedPublicKey(key.PublicKey, nil)
 		assert.Equal(t, pub.E, priv.E)
 		assert.Equal(t, pub.N, priv.N)
 	}
