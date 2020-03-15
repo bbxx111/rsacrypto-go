@@ -1,5 +1,18 @@
 # rsacrypto-go
 
+The *rsacrypto* is a RSA encryption and decryption tool based on official golang library.
+
+Key features:
+- Easy to use.
+- Support encryption and decryption of **large** data.
+
+## Encryption and Decryption of Large Data
+
+About data size limit of RSA algorithm, see https://en.wikipedia.org/wiki/RSA_(cryptosystem).
+
+This library support RSA encryption and decryption of large by dividing data into chunks.
+
+
 ## Encrypt with RSA Public Key
 
 1. Encrypt
