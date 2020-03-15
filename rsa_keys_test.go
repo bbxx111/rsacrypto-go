@@ -74,12 +74,17 @@ This is a very very long message. 这是一段很长很长的消息。This is a 
 			assert.Nil(t, err)
 			assert.Equal(t, plain, string(decrypted))
 
-			cipher, err = pubKey.EncryptAndEncode([]byte(plain), base64.StdEncoding)
-			assert.Nil(t, err)
-			decrypted, err = privKey.DecodeAndDecrypt(cipher, base64.URLEncoding)
-			//t.Logf("decrypted: %s", string(decrypted))
-			//assert.NotNil(t, err)
-			//assert.Nil(t, decrypted)
+
+			if len(plain) > 0 {
+				cipher, err = pubKey.EncryptAndEncode([]byte(plain), base64.StdEncoding)
+				assert.Nil(t, err)
+				decrypted, err = privKey.DecodeAndDecrypt(cipher, HexEncoding)
+				assert.NotNil(t, err)
+				assert.Nil(t, decrypted)
+				decrypted, err = privKey.DecodeAndDecrypt(cipher, base64.URLEncoding)
+				assert.NotNil(t, err)
+				assert.Nil(t, decrypted)
+			}
 		}
 	}
 }
